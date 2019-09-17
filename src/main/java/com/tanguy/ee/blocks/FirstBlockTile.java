@@ -1,5 +1,9 @@
 package com.tanguy.ee.blocks;
 
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -7,6 +11,8 @@ import net.minecraft.network.rcon.IServer;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
@@ -17,10 +23,11 @@ import org.apache.commons.lang3.concurrent.Computable;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.swing.plaf.basic.BasicComboBoxUI;
+import javax.swing.text.StringContent;
 
 import static com.tanguy.ee.blocks.ModBlocks.FIRSTBLOCK_TILE;
 
-public class FirstBlockTile extends TileEntity implements ITickableTileEntity {
+public class FirstBlockTile extends TileEntity implements ITickableTileEntity, INamedContainerProvider {
 
     private LazyOptional<BasicComboBoxUI.ItemHandler> handler = LazyOptional.of(this::createHandler).cast();
 
@@ -77,5 +84,16 @@ public class FirstBlockTile extends TileEntity implements ITickableTileEntity {
             return handler.cast();
         }
         return super.getCapability(cap, side);
+    }
+
+    @Override
+    public ITextComponent getDisplayName() {
+        return new StringTextComponent(getType().getRegistryName().getPath());
+    }
+
+    @Nullable
+    @Override
+    public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+        return new FirstBlockContainer(i, world, pos, playerInventory, playerEntity);
     }
 }

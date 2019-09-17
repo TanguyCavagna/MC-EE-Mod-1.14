@@ -1,6 +1,7 @@
 package com.tanguy.ee;
 
 import com.tanguy.ee.blocks.FirstBlock;
+import com.tanguy.ee.blocks.FirstBlockContainer;
 import com.tanguy.ee.blocks.FirstBlockTile;
 import com.tanguy.ee.blocks.ModBlocks;
 import com.tanguy.ee.items.FirstItem;
@@ -10,10 +11,13 @@ import com.tanguy.ee.setup.ModSetup;
 import com.tanguy.ee.setup.ServerProxy;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -35,6 +39,9 @@ import java.util.stream.Collectors;
 @Mod("ee")
 public class EE
 {
+
+    public static final String MODID = "ee";
+
     private static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
 
     public static ModSetup setup = new ModSetup();
@@ -79,6 +86,14 @@ public class EE
         public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> event) {
             // Duplicate \|/ this \|/ line for every block which contain a tile entity
             event.getRegistry().register(TileEntityType.Builder.create(FirstBlockTile::new, ModBlocks.FIRSTBLOCK).build(null).setRegistryName("firstblock"));
+        }
+
+        @SubscribeEvent
+        public static void onContainerregistry(final RegistryEvent.Register<ContainerType<?>> event) {
+            event.getRegistry().register(IForgeContainerType.create(((windowId, inv, data) -> {
+                BlockPos pos = data.readBlockPos();
+                return new FirstBlockContainer(windowId, EE.proxy.getClientWorld(), pos, inv, EE.proxy.getClienPlayer());
+            })).setRegistryName("firstblock"));
         }
     }
 }
