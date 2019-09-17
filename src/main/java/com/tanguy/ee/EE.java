@@ -4,6 +4,7 @@ import com.tanguy.ee.blocks.FirstBlock;
 import com.tanguy.ee.blocks.ModBlocks;
 import com.tanguy.ee.setup.ClientProxy;
 import com.tanguy.ee.setup.IProxy;
+import com.tanguy.ee.setup.ModSetup;
 import com.tanguy.ee.setup.ServerProxy;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -33,6 +34,8 @@ public class EE
 {
     private static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
 
+    public static ModSetup setup = new ModSetup();
+
     // Directly reference a log4j logger.
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -46,7 +49,8 @@ public class EE
 
     private void setup(final FMLCommonSetupEvent event)
     {
-        proxy.getClientWorld();
+        setup.init();
+        proxy.init();
     }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
@@ -62,7 +66,8 @@ public class EE
         // Register the item block so we can have it in the inventory
         @SubscribeEvent
         public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
-            event.getRegistry().register(new BlockItem(ModBlocks.FIRSTBLOCK, new Item.Properties()).setRegistryName("firstblock"));
+            Item.Properties properties = new Item.Properties().group(setup.itemGroup);
+            event.getRegistry().register(new BlockItem(ModBlocks.FIRSTBLOCK, properties).setRegistryName("firstblock"));
         }
     }
 }
