@@ -1,6 +1,12 @@
 {
-  "parent": "block/cube_all",
+  "parent": "block/cube",
   "textures": {
-    "all": "ee:block/firstblock"
+    "particle": "ee:block/firstblock",
+    "down": "ee:block/firstblock",
+    "up": "ee:block/firstblock",
+    "east": "ee:block/firstblock",
+    "west": "ee:block/firstblock",
+    "north": "ee:block/firstblock_front",
+    "south": "ee:block/firstblock"
   }
 }
