@@ -2,6 +2,7 @@ package com.tanguy.ee;
 
 import com.tanguy.ee.blocks.FirstBlock;
 import com.tanguy.ee.blocks.ModBlocks;
+import com.tanguy.ee.items.FirstItem;
 import com.tanguy.ee.setup.ClientProxy;
 import com.tanguy.ee.setup.IProxy;
 import com.tanguy.ee.setup.ModSetup;
@@ -68,6 +69,7 @@ public class EE
         public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
             Item.Properties properties = new Item.Properties().group(setup.itemGroup);
             event.getRegistry().register(new BlockItem(ModBlocks.FIRSTBLOCK, properties).setRegistryName("firstblock"));
+            event.getRegistry().register(new FirstItem());
         }
     }
 }
