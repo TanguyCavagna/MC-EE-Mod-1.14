@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#c#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:redstone"
+    },
+    "c": {
+      "item": "minecraft:clock"
+    }
+  },
+  "result": {
+    "item": "ee:firstblock"
+  }
+}
