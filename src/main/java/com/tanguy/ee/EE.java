@@ -1,6 +1,7 @@
 package com.tanguy.ee;
 
 import com.tanguy.ee.blocks.FirstBlock;
+import com.tanguy.ee.blocks.FirstBlockTile;
 import com.tanguy.ee.blocks.ModBlocks;
 import com.tanguy.ee.items.FirstItem;
 import com.tanguy.ee.setup.ClientProxy;
@@ -11,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -70,6 +72,13 @@ public class EE
             Item.Properties properties = new Item.Properties().group(setup.itemGroup);
             event.getRegistry().register(new BlockItem(ModBlocks.FIRSTBLOCK, properties).setRegistryName("firstblock"));
             event.getRegistry().register(new FirstItem());
+        }
+
+        // Register the block's tile entity
+        @SubscribeEvent
+        public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> event) {
+            // Duplicate \|/ this \|/ line for every block which contain a tile entity
+            event.getRegistry().register(TileEntityType.Builder.create(FirstBlockTile::new, ModBlocks.FIRSTBLOCK).build(null).setRegistryName("firstblock"));
         }
     }
 }
