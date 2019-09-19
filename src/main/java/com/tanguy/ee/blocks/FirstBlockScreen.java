@@ -24,8 +24,8 @@ public class FirstBlockScreen extends ContainerScreen<FirstBlockContainer> {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        this.font.drawString(this.title.getFormattedText(), 8.0f, 6.0f, 4210752);
-        this.font.drawString(this.playerInventory.getDisplayName().getFormattedText(), 8.0f, 6.0f, 4210752);
+        this.font.drawString(this.title.getFormattedText(), 9.0f, 9.0f, 4210752);
+        this.font.drawString(this.playerInventory.getDisplayName().getFormattedText(), 9.0f, 57.0f, 4210752);
     }
 
     @Override

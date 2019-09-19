@@ -22,7 +22,7 @@ public class FirstBlockContainer extends Container {
 
     public FirstBlockContainer(int windowId, World world, BlockPos pos, PlayerInventory inventory, PlayerEntity player) {
         super(FIRSTBLOCK_CONTAINER, windowId);
-        TileEntity tileEntity = world.getTileEntity(pos);
+        tileEntity = world.getTileEntity(pos);
         this.playerEntity = player;
         this.playerInventory = new InvWrapper(inventory);
 
